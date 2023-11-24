@@ -1,0 +1,9 @@
+.root {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+.navigation {
+  display: flex;
+  gap: 20px;
+}

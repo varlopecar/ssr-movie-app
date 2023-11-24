@@ -1,0 +1,9 @@
+header {
+  height: 80px;
+}
+main {
+  flex: 1;
+}
+footer {
+  height: 80px;
+}
