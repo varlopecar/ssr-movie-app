@@ -1,10 +1,20 @@
 "use client"
 import { InputAdornment, TextField } from '@mui/material'
-import { KeyboardEventHandler } from 'react';
+import { KeyboardEventHandler, useRef } from 'react';
 import SearchIcon from './SearchIcon';
+import { useRouter } from 'next/navigation';
 
 const SearchBar = () => {
-    const handleSearch = () => { /* we will implement the logic later */ };
+    const inputRef = useRef<HTMLInputElement>(null);
+    const router = useRouter();
+
+    const handleSearch = () => {
+        const inputValue = inputRef.current?.value;
+
+        if (!inputValue) return;
+
+        router.push(`/search/${inputValue}`);
+    };
 
     const onSearchKeyDown: KeyboardEventHandler<HTMLDivElement> = (e) => {
         if (e.code !== "Enter") return;
@@ -13,6 +23,7 @@ const SearchBar = () => {
 
     return (
         <TextField
+            inputRef={inputRef}
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
