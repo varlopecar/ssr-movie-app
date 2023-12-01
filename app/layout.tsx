@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -5,7 +6,9 @@ import "./layout.css";
 import MainHeader from "@/components/MainHeader";
 import MainFooter from "@/components/MainFooter";
 import ThemeRegistry from "../theme/ThemeRegistry";
+
 const inter = Inter({ subsets: ["latin"] });
+
 export const metadata: Metadata = {
   title: "My movies",
   description: "A playlists of movies application",
@@ -13,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <html lang="en">
