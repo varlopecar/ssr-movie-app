@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import classes from "./page.module.css";
 import { fetchMovie } from "@/services/api/tmb";
 import { Metadata } from "next";
+import { Suspense } from "react";
+import PageHead from "./PageHead";
 
 type Props = {
     params: {
@@ -41,10 +43,17 @@ const MoviePage = async ({ params }: Props) => {
         return notFound();
     }
     return (
-        <div className={classes.root}>
-            <Typography>Movie ID: {movieId}</Typography>
-            <MovieSection movieId={movieId} />
-        </div>
+        <>
+            <Suspense>
+                <PageHead movieId={movieId} />
+            </Suspense>
+            <div className={classes.root}>
+                <Typography>Movie ID: {movieId}</Typography>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <MovieSection movieId={movieId} />
+                </Suspense>
+            </div>
+        </>
     );
 };
 

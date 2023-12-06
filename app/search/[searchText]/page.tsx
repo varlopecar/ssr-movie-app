@@ -1,11 +1,12 @@
 import SearchResults from "@/components/SearchResults";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 type Props = {
     params: { searchText: string };
 };
 
-export function generateMetadata ({ params }: Props) {
+export function generateMetadata({ params }: Props) {
     const { searchText } = params;
 
     return {
@@ -20,8 +21,9 @@ const SearchTextPage = async ({ params }: Props) => {
     return (
         <div>
             <h1>SearchTextPage</h1>
-            <p>Search text: {searchText}</p>
-            <SearchResults searchText={searchText} />
+            <Suspense fallback={<div>Loading...</div>}>
+                <SearchResults searchText={searchText} />
+            </Suspense>
         </div>
     );
 }

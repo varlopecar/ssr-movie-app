@@ -3,24 +3,27 @@ import { Card, CardContent, Box, Rating, Typography } from "@mui/material";
 import classes from "./index.module.css";
 // import Image from "next/image";
 import { Movie } from "@/types";
+import Image from "next/image";
+import { retrieveMovieImageUrl } from "@/services/api/tmb";
 
 type Props = {
     movie: Movie;
 };
 
 const MovieCard = async ({ movie }: Props) => {
-    // const image = getMovieImageUrl(movie.poster_path);
+    const image = retrieveMovieImageUrl(movie.poster_path);
+
     return (
         <Card>
             <CardContent className={classes.root}>
                 <Box className={classes.imageWrapper}>
-                    {/* <Image
-                    priority
-                    src={image}
-                    alt={`poster ${movie.title}`}
-                    width={267}
-                    height={400}
-                    /> */}
+                    <Image
+                        priority
+                        src={image}
+                        alt={`poster ${movie.title}`}
+                        width={267}
+                        height={400}
+                    />
                 </Box>
                 <Box className={classes.content}>
                     <Rating
