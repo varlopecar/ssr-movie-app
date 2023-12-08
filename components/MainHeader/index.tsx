@@ -15,6 +15,9 @@ const MainHeader = () => {
                 <Link href="/search">
                     Search
                 </Link>
+                <Link href={"/playlists/creation"} prefetch={false}>
+                    Create playlist
+                </Link>
             </nav>
         </div>
     );
