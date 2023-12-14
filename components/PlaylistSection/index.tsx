@@ -7,10 +7,6 @@ import { Movie, LocalStoragePlaylist } from "@/types";
 import {
   Box,
   Button,
-  FormControl,
-  FormHelperText,
-  Input,
-  InputLabel,
   TextField,
 } from "@mui/material";
 

@@ -47,8 +47,8 @@ const MoviePage = async ({ params }: Props) => {
             <Suspense>
                 <PageHead movieId={movieId} />
             </Suspense>
+            
             <div className={classes.root}>
-                <Typography>Movie ID: {movieId}</Typography>
                 <Suspense fallback={<div>Loading...</div>}>
                     <MovieSection movieId={movieId} />
                 </Suspense>

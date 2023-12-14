@@ -1,13 +1,16 @@
 import PlaylistSection from '@/components/PlaylistSection'
+import { Metadata } from 'next';
 import React from 'react'
+
+export const metadata: Metadata = {
+  title: "Playlist creation - My movies",
+  description: "Playlist Creation Page",
+};
 
 const PlaylistCreationPage = () => {
 
   return (
-    <div>
-      <h1>Playlist Creation Page</h1>
-      <PlaylistSection />
-    </div>
+    <PlaylistSection />
   )
 }
 

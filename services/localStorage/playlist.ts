@@ -59,7 +59,6 @@ function setMetadata({ name, description }: { name: string; description: string 
 const localStoragePlaylist = {
   addMovie,
   get,
-  set,
   removeMovie,
   setMetadata,
 };
