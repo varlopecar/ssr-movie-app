@@ -2,8 +2,8 @@
 
 import { Movie } from '@/types'
 import { Add } from '@mui/icons-material'
-import { Button } from '@mui/material'
-import React from 'react'
+import { Alert, Button, Snackbar } from '@mui/material'
+import React, { useState } from 'react'
 import playlistService from '@/services/localStorage/playlist'
 
 type AddToPlaylistButtonProps = {
@@ -11,15 +11,39 @@ type AddToPlaylistButtonProps = {
 }
 
 const AddToPlaylistButton = ({ movie }: AddToPlaylistButtonProps) => {
+    const [open, setOpen] = useState(false)
+
     const handleClick = () => {
-        playlistService.addMovie(movie)
+        try {
+            playlistService.addMovie(movie)
+            setOpen(true)
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     return (
-        <Button variant="outlined" color="primary" sx={{ my: 1 }} onClick={handleClick}>
-            Add to playlist
-            <Add sx={{ ml: 1 }} />
-        </Button>
+        <>
+            <Button
+                onClick={handleClick}
+                variant="contained"
+                startIcon={<Add />}
+                sx={{ mb: 2 }}
+            >
+                Add to playlist
+            </Button>
+            <Snackbar
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                open={open}
+                onClose={() => setOpen(false)}
+                key="topright"
+                autoHideDuration={3000}
+            >
+                <Alert severity="success" sx={{ width: '100%' }}>
+                    Movie added to playlist
+                </Alert>
+            </Snackbar>
+        </>
     )
 }
 
