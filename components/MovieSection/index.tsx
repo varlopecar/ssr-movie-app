@@ -1,4 +1,4 @@
-import { fetchMovie } from "@/services/api/tmb";
+import { fetchMovie } from "@/services/api/tmbd";
 import MovieCard from "../MovieCard";
 import AddToPlaylistButton from "../AddToPlaylistButton";
 

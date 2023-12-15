@@ -9,11 +9,14 @@ import {
   Button,
   TextField,
 } from "@mui/material";
+import ApplicationApi from "@/services/api/application";
+import { useRouter } from "next/navigation";
 
 const PlaylistSection = () => {
   const [playlist, setPlaylist] = useState<LocalStoragePlaylist | null>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const descriptionInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const playlist = localStoragePlaylist.get();
@@ -25,11 +28,15 @@ const PlaylistSection = () => {
     setPlaylist(updatedPlaylist);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const name = nameInputRef.current?.value ?? "";
-    const description = descriptionInputRef.current?.value ?? "";
+    const description = descriptionInputRef.current?.value;
+
+    if (!name || !description) {
+      return;
+    }
 
     const updatedPlaylist = localStoragePlaylist.setMetadata({
       name,
@@ -37,8 +44,19 @@ const PlaylistSection = () => {
     });
 
     setPlaylist(updatedPlaylist);
-    console.log(updatedPlaylist);
+    
+    const result = await ApplicationApi.playlist.create(updatedPlaylist);
+
+    console.log(result);
+
+    if (result) {
+      router.push(`/playlists/${result.id}`);
+    }
   };
+
+  if(!playlist) {
+    return null;
+  }
 
   return (
     <section>

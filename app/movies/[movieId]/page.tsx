@@ -2,7 +2,7 @@ import MovieSection from "@/components/MovieSection";
 import { Typography } from "@mui/material";
 import { notFound } from "next/navigation";
 import classes from "./page.module.css";
-import { fetchMovie } from "@/services/api/tmb";
+import { fetchMovie } from "@/services/api/tmbd";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import PageHead from "./PageHead";
@@ -47,7 +47,7 @@ const MoviePage = async ({ params }: Props) => {
             <Suspense>
                 <PageHead movieId={movieId} />
             </Suspense>
-            
+
             <div className={classes.root}>
                 <Suspense fallback={<div>Loading...</div>}>
                     <MovieSection movieId={movieId} />

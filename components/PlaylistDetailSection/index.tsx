@@ -1,16 +1,41 @@
-import { Movie } from '@/types'
-import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import React from 'react'
+import ApplicationApi from '@/services/api/application'
+import { fetchMovie } from '@/services/api/tmbd'
+import { Playlist } from '@/types'
+import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import Image from 'next/image'
+import CopyToClipboard from '../CopyToClipboard'
 
 type Props = {
-    playlist: Movie[] | null | undefined,
-    onMovieDeletion: (movie: Movie) => void
+    id: number
 }
 
-const PlaylistMovies = ({ playlist, onMovieDeletion }: Props) => {
+const PlaylistDetailSection = async (props: Props) => {
+    const playlist = await ApplicationApi.playlist.get(props.id)
+
+    console.log(playlist)
+
+    const movies = await Promise.all(
+        playlist.movies.map(({ id }: { id: number }) => fetchMovie(id))
+    );
+
+    const newPlaylist: Playlist = {
+        ...playlist,
+        movies,
+    };
+
+    console.log(newPlaylist)
+
     return (
-        playlist && (
+        <Container>
+            <Typography variant="h4" component="h4" sx={{ mb: 2 }}>
+                {newPlaylist.name}
+            </Typography>
+            <Typography variant="body1" component="p" sx={{ mb: 2 }}>
+                {newPlaylist.description}
+            </Typography>
+
+            <CopyToClipboard value={`http://localhost:3000/playlists/${props.id}`} />
+
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -20,11 +45,10 @@ const PlaylistMovies = ({ playlist, onMovieDeletion }: Props) => {
                             <TableCell>Release Date</TableCell>
                             <TableCell>Overview</TableCell>
                             <TableCell>Vote Average</TableCell>
-                            <TableCell>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {playlist.map((movie) => (
+                        {movies.map((movie) => (
                             <TableRow key={movie.id}>
                                 <TableCell>{movie.title}</TableCell>
                                 <TableCell>
@@ -38,21 +62,13 @@ const PlaylistMovies = ({ playlist, onMovieDeletion }: Props) => {
                                 <TableCell>{movie.release_date}</TableCell>
                                 <TableCell>{movie.overview}</TableCell>
                                 <TableCell>{movie.vote_average}</TableCell>
-                                <TableCell>
-                                    <Button
-                                        variant="contained"
-                                        color="error"
-                                        onClick={() => onMovieDeletion(movie)}
-                                    >
-                                        Delete
-                                    </Button>
-                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-        )
+        </Container>
     )
 }
-export default PlaylistMovies
+
+export default PlaylistDetailSection

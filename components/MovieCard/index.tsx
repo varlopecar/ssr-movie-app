@@ -4,7 +4,7 @@ import classes from "./index.module.css";
 // import Image from "next/image";
 import { Movie } from "@/types";
 import Image from "next/image";
-import { retrieveMovieImageUrl } from "@/services/api/tmb";
+import { retrieveMovieImageUrl } from "@/services/api/tmbd";
 
 type Props = {
     movie: Movie;

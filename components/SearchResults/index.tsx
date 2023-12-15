@@ -1,6 +1,6 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import classes from "./index.module.css";
-import { fetchMovies } from "@/services/api/tmb";
+import { fetchMovies } from "@/services/api/tmbd";
 import ClientTableRow from "./ClientTableRow";
 
 type Props = {

@@ -27,3 +27,9 @@ export type LocalStoragePlaylist = {
   description: string;
   movies: Movie[];
 };
+
+export type Playlist = {
+  name: string;
+  description: string;
+  movies: Pick<Movie, 'id'>[];
+};

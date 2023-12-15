@@ -1,5 +1,5 @@
 import ClientHead from "@/components/ClientHead";
-import { fetchMovie } from "@/services/api/tmb";
+import { fetchMovie } from "@/services/api/tmbd";
 type Props = {
     movieId: number;
 };
